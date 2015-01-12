@@ -31,6 +31,9 @@ http://pan.baidu.com/s/1bnfHdzL<br>
 Lua移植版资源下载地址：<br>
 http://pan.baidu.com/s/1kTqqhin<br>
 
+Lua移植版Win32安装包下载地址：<br>
+http://pan.baidu.com/s/1gd5ruaJ<br>
+
 开发环境：<br>
 Quick-Cocos2d-x-2.2.5<br>
 Cocos Code IDE<br>
