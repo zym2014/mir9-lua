@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'mir9' target in the 'mir9' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+#endif

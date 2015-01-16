@@ -45,5 +45,5 @@ Cocos Code IDE<br>
 [https://github.com/zym2014/mir9-lua](https://github.com/zym2014/mir9-lua)
 
 作者Blog：<br>
-[http://zym.cnblogs.com/](http://zym.cnblogs.com/)<br>
+[http://zym.cnblogs.com](http://zym.cnblogs.com)<br>
 [http://blog.csdn.net/zym_123456](http://blog.csdn.net/zym_123456)<br>

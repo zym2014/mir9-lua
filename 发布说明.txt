@@ -34,5 +34,5 @@
     https://github.com/zym2014/mir9-lua
 
     作者Blog：
-    http://zym.cnblogs.com/
+    http://zym.cnblogs.com
     http://blog.csdn.net/zym_123456
