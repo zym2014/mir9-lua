@@ -61,16 +61,21 @@ function PropColumnMenu:init()
     
     self:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
         if event.name == "began" then
-            local bRet = self:onTouchBegan(event)
-            local rect = bg:getBoundingBox()
-            local pt = bg:convertToNodeSpace(cc.p(event.x, event.y))
-            --print("==============", rect.x, rect.y, rect.width, rect.height, pt.x, pt.y)
-            if (cc.rectContainsPoint(bg:getBoundingBox(), pt)) then
-                self:setTouchSwallowEnabled(true)
-            else
+            local point = cc.p(event.x, event.y)
+
+            local rect = cc.rect(0,0,0,0)
+            local pt = bg:convertToWorldSpace(cc.p(0,0))
+            local size = bg:getContentSize()
+            rect.x, rect.y = pt.x, pt.y
+            rect.width, rect.height = size.width, size.height
+            
+            if (not cc.rectContainsPoint(rect, point)) then
                 self:setTouchSwallowEnabled(false)
+                return false
             end
-            return bRet
+            
+            self:setTouchSwallowEnabled(true)
+            return self:onTouchBegan(event)
         elseif event.name == "moved" then
             self:onTouchMoved(event)
         elseif event.name == "ended" then
@@ -153,11 +158,11 @@ function PropColumnMenu:onTouchBegan(event)
             break
         end
     end
-    
+
     if (not self.m_editProp) then
         return false
     end
-
+    
     return true
 end
 

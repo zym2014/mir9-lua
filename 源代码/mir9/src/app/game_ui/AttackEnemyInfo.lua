@@ -13,11 +13,20 @@ function AttackEnemyInfo:ctor()
 end
 
 function AttackEnemyInfo:init()
-    --self:setTouchSwallowEnabled(false)
-    
     local bg = cc.ui.UIImage.new("ui/enemyInfo/icon/enemy_info.png")
     bg:setPosition(0, 0)
     self:addChild(bg)
+    
+    bg:setTouchEnabled(true)  
+    bg:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        if event.name == "began" then
+            if cc.rectContainsPoint(bg:getBoundingBox(), cc.p(event.x, event.y)) then  
+                bg:setTouchSwallowEnabled(true)
+                return true
+            end
+            return false
+        end
+    end)
     
     self.m_bloodPro = cc.ui.UILoadingBar.new({scale9 = false, image = "ui/enemyInfo/icon/blood_in.png", capInsets = cc.rect(0, 0, 0, 0), viewRect = cc.rect(0, 0, 142, 17)})
     self.m_bloodPro:setPosition(38, 10)

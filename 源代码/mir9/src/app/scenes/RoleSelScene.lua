@@ -25,106 +25,27 @@ function RoleSelScene:init()
         size = 35,
         color = cc.c3b(255,255,255),
         fontName = "黑体"
-    }):pos(480, 576):addTo(self)
-    label:setAnchorPoint(0.5, 0.5)
-    
-    label = cc.ui.UILabel.new({
-        text = "血腥、暴力、耐打",
-        size = 25,
-        color = cc.c3b(255,255,255),
-        fontName = "宋体"
-    }):pos(192, 179):addTo(self)
-    label:setAnchorPoint(0.5, 0.5)
-    
-    label = cc.ui.UILabel.new({
-        text = "召唤、辅助、周旋",
-        size = 25,
-        color = cc.c3b(255,255,255),
-        fontName = "宋体"
-    }):pos(480, 179):addTo(self)
-    label:setAnchorPoint(0.5, 0.5)
-    
-    label = cc.ui.UILabel.new({
-        text = "强力、强力、还是强力",
-        size = 25,
-        color = cc.c3b(255,255,255),
-        fontName = "宋体"
-    }):pos(768, 179):addTo(self)
-    label:setAnchorPoint(0.5, 0.5)
-    
-    local editBox = cc.ui.UIInput.new({
-        image = "EditBoxBg.png",
-        size = cc.size(200, 50),
-        x = 480,
-        y = 96,
-        listener = function(event, editbox)
-            if event == "began" then
-                self:onEditBoxBegan(editbox)
-            elseif event == "ended" then
-                self:onEditBoxEnded(editbox)
-            elseif event == "return" then
-                self:onEditBoxReturn(editbox)
-            elseif event == "changed" then
-                self:onEditBoxChanged(editbox)
-            else
-                printf("EditBox event %s", tostring(event))
-            end
-        end
-    })
-    editBox:setFontSize(25)
-    editBox:setFontName("宋体")
-    editBox:setPlaceHolder("从这里输入昵称")
-    editBox:setPlaceholderFontColor(cc.c3b(0, 0, 0))
-    editBox:setMaxLength(14)
-    editBox:setInputMode(cc.EDITBOX_INPUT_MODE_ANY)
-    editBox:setReturnType(cc.KEYBOARD_RETURNTYPE_DONE)
-    self:addChild(editBox)
-    self.m_edtNickName = editBox
+    }):pos(display.cx, 576):addTo(self)
+    label:setAnchorPoint(0.5, 0.5)    
     
     local PUSH_BUTTON_IMAGES = {
-        normal = "ui/role_create/GUI/button.png",
-        pressed = nil,
-        disabled = nil,
-    }
-
-    local btn = cc.ui.UIPushButton.new(PUSH_BUTTON_IMAGES, {scale9 = true})
-    btn:setAnchorPoint(0.5, 0.5)
-    btn:setButtonSize(40, 40)
-    btn:setPosition(604, 96)
-    btn:onButtonClicked(handler(self, self.randomNickName))
-    self:addChild(btn)
-    
-    btn = cc.ui.UIPushButton.new(PUSH_BUTTON_IMAGES, {scale9 = true})
-    btn:setAnchorPoint(1, 0.5)
-    btn:setButtonSize(150, 80)
-    btn:setPosition(910, 80)
-    btn:setColor(cc.c3b(127, 127, 127))
-    btn:setTouchEnabled(false)
-    btn:setButtonLabel("normal", cc.ui.UILabel.new({
-        text = "进入游戏",
-        fontName = "宋体",
-        size = 25
-    }))
-    btn:onButtonClicked(handler(self, self.sendMessage))
-    self:addChild(btn)
-    self.m_btnBegin = btn
-    
-    PUSH_BUTTON_IMAGES = {
         normal = nil,
         pressed = nil,
         disabled = nil,
     }
     
-    local szBtn = cc.size(120, 200)
     local figureId = {11001, 11002, 12001, 12002, 13001, 13002, 14001, 14002, 15001, 15002, 16001, 16002}
     local hairId = {1000, 1000, 1100, 1100, 1200, 1200}
+    
+    local szBtn = cc.size(120, 200)
+    local nStart = (display.width-(szBtn.width*6+30*3+10*2))/2
     local pt = {
-        cc.p(115, 320),
-        cc.p(268, 320),
-        cc.p(403, 320),
-        cc.p(556, 320),
-        cc.p(691, 320),
-        cc.p(844, 320)
+        cc.p(nStart+szBtn.width/2, 320),
+        cc.p(nStart+szBtn.width+30+szBtn.width/2, 320),
+        cc.p(nStart+szBtn.width*2+30+10+szBtn.width/2, 320),
+        cc.p(nStart+szBtn.width*3+30*2+10+szBtn.width/2, 320),
+        cc.p(nStart+szBtn.width*4+30*2+10*2+szBtn.width/2, 320),
+        cc.p(nStart+szBtn.width*5+30*3+10*2+szBtn.width/2, 320)
     }
     
     for i = 1, 6 do
@@ -145,6 +66,85 @@ function RoleSelScene:init()
         table.insert(self.m_arrRole, monomer)
     end
 
+    label = cc.ui.UILabel.new({
+        text = "血腥、暴力、耐打",
+        size = 25,
+        color = cc.c3b(255,255,255),
+        fontName = "宋体"
+    }):pos(nStart+24, 179):addTo(self)
+
+    label = cc.ui.UILabel.new({
+        text = "召唤、辅助、周旋",
+        size = 25,
+        color = cc.c3b(255,255,255),
+        fontName = "宋体"
+    }):pos(nStart+szBtn.width*2+30+10+24, 179):addTo(self)
+
+    label = cc.ui.UILabel.new({
+        text = "强力、强力、还是强力",
+        size = 25,
+        color = cc.c3b(255,255,255),
+        fontName = "宋体"
+    }):pos(nStart+szBtn.width*4+30*2+10*2+24, 179):addTo(self)
+
+    local editBox = cc.ui.UIInput.new({
+        image = "EditBoxBg.png",
+        size = cc.size(140, 50),
+        x = nStart+szBtn.width*2+30+10+24,
+        y = 80,
+        listener = function(event, editbox)
+            if event == "began" then
+                self:onEditBoxBegan(editbox)
+            elseif event == "ended" then
+                self:onEditBoxEnded(editbox)
+            elseif event == "return" then
+                self:onEditBoxReturn(editbox)
+            elseif event == "changed" then
+                self:onEditBoxChanged(editbox)
+            else
+                printf("EditBox event %s", tostring(event))
+            end
+        end
+    })
+    editBox:setAnchorPoint(0, 0)
+    editBox:setFontSize(25)
+    editBox:setFontName("宋体")
+    editBox:setPlaceHolder("从这里输入昵称")
+    editBox:setPlaceholderFontColor(cc.c3b(0, 0, 0))
+    editBox:setMaxLength(14)
+    editBox:setInputMode(cc.EDITBOX_INPUT_MODE_ANY)
+    editBox:setReturnType(cc.KEYBOARD_RETURNTYPE_DONE)
+    self:addChild(editBox)
+    self.m_edtNickName = editBox
+
+    PUSH_BUTTON_IMAGES = {
+        normal = "ui/role_create/GUI/button.png",
+        pressed = nil,
+        disabled = nil,
+    }
+
+    local btn = cc.ui.UIPushButton.new(PUSH_BUTTON_IMAGES, {scale9 = true})
+    btn:setAnchorPoint(0, 0)
+    btn:setButtonSize(40, 40)
+    btn:setPosition(editBox:getPositionX()+editBox:getContentSize().width+50, 80)
+    btn:onButtonClicked(handler(self, self.randomNickName))
+    self:addChild(btn)
+
+    btn = cc.ui.UIPushButton.new(PUSH_BUTTON_IMAGES, {scale9 = true})
+    btn:setAnchorPoint(1, 0.5)
+    btn:setButtonSize(150, 80)
+    btn:setPosition(nStart+szBtn.width*6+30*3+10*2, 80)
+    btn:setColor(cc.c3b(127, 127, 127))
+    btn:setTouchEnabled(false)
+    btn:setButtonLabel("normal", cc.ui.UILabel.new({
+        text = "进入游戏",
+        fontName = "宋体",
+        size = 25
+    }))
+    btn:onButtonClicked(handler(self, self.sendMessage))
+    self:addChild(btn)
+    self.m_btnBegin = btn
+    
     return true
 end
 
